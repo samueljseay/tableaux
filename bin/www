@@ -1,0 +1,52 @@
+#!/usr/bin/env node
+var debug = require('debug')('paleology-web'),
+    app = require('../app'),
+	  mongoose = require('mongoose');
+
+var db_conn_string = 'mongodb://localhost/tableaux';
+
+mongoose.connect(db_conn_string, function(err,res) {
+  if(err) {
+    throw err;
+  }
+  else {
+    //load seeds
+    var seeds = require('../lib/seed');
+
+    app.set('port', process.env.PORT || 3000);
+
+  	var server = app.listen(app.get('port'), function() {
+      console.log('app started.');
+  	});
+
+    server.on('error', onError);
+  }
+});
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
