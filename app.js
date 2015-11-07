@@ -8,7 +8,8 @@ var express = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     User = require('./models/user'),
-    cookieParser = require('cookie-parser');
+    cookieParser = require('cookie-parser'),
+    tableaux = require('./lib/tableaux');
 
 var app = express();
 
@@ -47,11 +48,7 @@ passport.use(new LocalStrategy(
   }
 ));
 
-var controllers = requireDir('./controllers');
-
-for(controller in controllers) {
-  controllers[controller].mount(app);
-}
+tableaux.initialize(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
