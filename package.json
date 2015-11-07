@@ -1,7 +1,8 @@
 {
   "name": "tableaux",
-  "version": "0.0.0",
-  "private": true,
+  "author": "Samuel Seay",
+  "version": "0.0.1",
+  "license": "MIT",
   "scripts": {
     "start": "node ./bin/www"
   },

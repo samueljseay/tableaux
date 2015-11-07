@@ -1,1 +1,1 @@
-# tableaux, micro mvc framework for express
+# Tableaux. Micro MVC framework for express
