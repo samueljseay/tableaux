@@ -12,15 +12,6 @@ var DashboardController = new Controller({
 		action: function(req, res) {
 			new View(res, 'dashboard').render({ user: req.user });
 		}
-	}, {
-		urls: ['/menus'],
-		role: 'user',
-		requestType: 'GET',
-		action: function(req, res) {
-			Menu.find({}, function(err, menus) {
-				new View(res, 'menus').render({ menus: menus });
-			});
-		}
 	}]
 });
 

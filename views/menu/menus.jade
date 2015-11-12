@@ -1,0 +1,12 @@
+extend /layout
+
+block content
+  h2 Menus
+
+  ul
+    - each menu in menus
+      li= menu.name
+
+
+  h3 Create Menu
+  div(id='example')

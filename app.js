@@ -15,6 +15,7 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+app.locals.basedir = app.get('views');
 app.set('root', __dirname);
 app.set('view options', { layout: false });
 app.set('view engine', 'jade');
