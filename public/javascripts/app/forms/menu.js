@@ -16,10 +16,13 @@ var MenuForm = React.createClass({
   render: function() {
     return <form method="post" action="/menu/create">
       <fieldset>
+        <label for="menu[name]">Menu Name:</label>
         <input type="text" name="menu[name]" value={this.state.name} onChange={this.changeName} />
         {this.state.sections.map(this.renderSection)}
+        <div>
+          <a href="#" onClick={this.addSection}>Add a section</a>
+        </div>
       </fieldset>
-      <a href="#" onClick={this.addSection}>Add a section</a>
 
       <input type="submit" value="Submit" />
     </form>;
@@ -38,7 +41,7 @@ var MenuForm = React.createClass({
 MenuForm.Section = React.createClass({
   getInitialState: function() {
     return {
-      name: 'section',
+      name: '',
       items: [{
         name: '',
         description: '',
@@ -65,8 +68,8 @@ MenuForm.Section = React.createClass({
 
   render: function() {
     return <fieldset>
-      <p>Section</p>
-      <input type="text" name={"menu[sections][" + this.props.index +"][name]"} value={this.state.name} placeholder="e.g. entrees" onChange={this.changeName}/>
+      <label for={"menu[sections][" + this.props.index +"][name]"}>Section Name (e.g. Entrees):</label>
+      <input type="text" name={"menu[sections][" + this.props.index +"][name]"} value={this.state.name} onChange={this.changeName}/>
       <p>Items</p>
       <a href="#" onClick={this.addItem} >Add menu item</a>
       {
@@ -106,8 +109,13 @@ MenuForm.SectionItem = React.createClass({
 
   render: function() {
     return <fieldset>
+      <label for={"menu[sections][" + this.props.sectionIndex + "][items][" + this.props.index + "][name]"}>Item name:</label>
       <input type="text" onChange={this.changeName} value={this.state.item.name} name={"menu[sections][" + this.props.sectionIndex + "][items][" + this.props.index + "][name]"} />
+
+      <label for={"menu[sections][" + this.props.sectionIndex + "][items][" + this.props.index + "][description]"} >Item description:</label>
       <input type="text" onChange={this.changeDesc} value={this.state.item.description} name={"menu[sections][" + this.props.sectionIndex + "][items][" + this.props.index + "][description]"} />
+
+      <label for={"menu[sections][" + this.props.sectionIndex + "][items][" + this.props.index + "][price]"} >Item price:</label>
       <input type="text" onChange={this.changePrice} value={this.state.item.price} name={"menu[sections][" + this.props.sectionIndex + "][items][" + this.props.index + "][price]"} />
     </fieldset>;
   }
