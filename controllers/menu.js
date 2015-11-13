@@ -8,19 +8,22 @@ var MenuController = new Controller({
 	routes: [{
 		urls: ['/'],
 		requestType: 'GET',
+		role: 'user',
 		action: function(req, res) {
-      Menu.find({}, function(err, menus) {
-				new View(res, 'menu/menus').render({ menus: menus });
+      Menu.find({ 'user.email': req.user.email }, function(err, menus) {
+				new View(res, 'menu/menus').render({ menus: menus || [] });
 			});
 		}
 	}, {
     urls: ['/create'],
     requestType: 'POST',
-    action: function(req, res) {
-			console.log(req.body.menu.sections);
+		role: 'user',
+    action: function(req, response) {
+			var menu = req.body.menu;
+			menu.user = req.user;
 
-			Menu.find({}, function(err, menus) {
-				new View(res, 'menu/menus').render({ menus: menus });
+			new Menu(menu).save(function(err, res) {
+				response.redirect('/menu');
 			});
     }
   }]

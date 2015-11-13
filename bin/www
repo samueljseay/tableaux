@@ -11,15 +11,15 @@ mongoose.connect(db_conn_string, function(err,res) {
   }
   else {
     //load seeds
-    var seeds = require('../lib/seed');
+    require('../lib/seed').then(function() {
+      app.set('port', process.env.PORT || 3000);
 
-    app.set('port', process.env.PORT || 3000);
+    	var server = app.listen(app.get('port'), function() {
+        console.log('app started.');
+    	});
 
-  	var server = app.listen(app.get('port'), function() {
-      console.log('app started.');
-  	});
-
-    server.on('error', onError);
+      server.on('error', onError);
+    });
   }
 });
 
