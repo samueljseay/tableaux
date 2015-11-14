@@ -1,0 +1,10 @@
+extend /layout
+
+block scripts
+  script.
+    window.app = {};
+    window.app.menu = !{JSON.stringify(menu)};
+
+block content
+  h1 Edit Menu
+  div(id='menu-form')

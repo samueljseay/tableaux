@@ -5,7 +5,8 @@ var User = require('./user').schema;
 
 var MenuSectionItem = new Schema({
   name: { type: String, required: true },
-  description: { type: String }
+  description: { type: String },
+  price: { type: String, required: true }
 });
 
 var MenuSection = new Schema({

@@ -5,8 +5,10 @@ block content
 
   ul
     - each menu in menus
-      li= menu.name
+      li
+        a(href="/menu/#{menu.id}")
+          = menu.name
 
 
   h3 Create Menu
-  div(id='example')
+  div(id='menu-form')

@@ -14,13 +14,15 @@ module.exports = {
             name: 'Entrees',
             items: [{
               name: 'Big Breakfast',
-              description: 'the biggest breakfast'
+              description: 'the biggest breakfast',
+              price:'20'
             }]
           }, {
             name: 'Mains',
             items: [{
               name: 'Big Lunch',
-              description: 'a big lunch'
+              description: 'a big lunch',
+              price:'30'
             }]
           }]
         }];
