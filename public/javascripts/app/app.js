@@ -26,8 +26,6 @@ if(document.getElementById('menu-form')) {
 if (document.getElementById('menu-css-form')) {
   var menu = window.app.menu;
 
-  console.log(menu);
-
   ReactDOM.render(
     <MenuCSSForm id={menu._id} css={menu.css}/>,
     document.getElementById('menu-css-form')

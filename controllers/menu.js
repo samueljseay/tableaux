@@ -43,7 +43,7 @@ var MenuController = new Controller({
 			var menu = req.body.menu;
 
 			Menu.findByIdAndUpdate(menu._id, menu, function(err, men) {
-				res.redirect('/menu/' + men.id);
+				res.redirect('/menu');
 			});
 		}
 	}, {

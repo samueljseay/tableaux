@@ -6,9 +6,17 @@ block scripts
     window.app.menu = !{JSON.stringify(menu)};
 
 block content
-  h1 Preview your menu
-
   div(class='menu')
-    h2= menu.name
+    h2(class='menu-heading')= menu.name
+
+    - each section in menu.sections
+      div(class='menu-section')
+        h3(class='menu-section-heading')
+          = section.name
+        - each item in section.items
+          div(class='menu-item')
+            p(class='menu-item-name')= item.name
+            p(class='menu-item-description')= item.description
+            p(class='menu-item-price')= item.price
 
   div(id='menu-css-form')
