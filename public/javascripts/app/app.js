@@ -8,15 +8,17 @@ if(document.getElementById('menu-form')) {
 
   if(window.app && window.app.menu) {
     var menu = window.app.menu;
+
     console.log(menu);
+
     ReactDOM.render(
-      <MenuForm name={menu.name} sections={menu.sections} />,
+      <MenuForm name={menu.name} sections={menu.sections} id={menu._id} action='update'/>,
       document.getElementById('menu-form')
     );
   }
   else {
     ReactDOM.render(
-      <MenuForm />,
+      <MenuForm action='create' />,
       document.getElementById('menu-form')
     );
   }

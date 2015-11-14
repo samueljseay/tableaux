@@ -18,13 +18,15 @@ module.exports = {
 
     return Q.Promise(function(resolve, rej, notify) {
       User.remove(function(err,p) {
-        users.forEach(function(u) {
+        users.forEach(function(u, i) {
           User.find(u, function(err, res) {
             if(!res.length) {
               console.log('seeding user: ' + u.username);
               new User(u).save(function(err) {
                 if (err) { rej(err); }
-                resolve();
+                if(i == users.length - 1) {
+                  resolve();
+                }
               });
             }
           });

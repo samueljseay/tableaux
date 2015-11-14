@@ -36,6 +36,17 @@ var MenuController = new Controller({
 				new View(res, 'menu/menu').render({ menu: menus[0] });
 			});
 		}
+	}, {
+		urls: ['/update'],
+		requestType: 'POST',
+		role: 'user',
+		action: function(req, res) {
+			var menu = req.body.menu;
+			
+			Menu.findByIdAndUpdate(menu._id, menu, function(err, men) {
+				res.redirect('/menu/' + men.id);
+			});
+		}
 	}]
 });
 

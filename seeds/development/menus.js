@@ -6,7 +6,7 @@ module.exports = {
   order: 1,
   seed: function() {
     return Q.Promise(function(resolve,rej,notify) {
-      User.find({}, function(err, res) {
+      User.find({ username: 'user' }, function(err, res) {
         var menus = [{
           name: 'Our Menu',
           user: res[0],

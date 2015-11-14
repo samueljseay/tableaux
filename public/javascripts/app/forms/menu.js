@@ -14,10 +14,13 @@ var MenuForm = React.createClass({
   },
 
   render: function() {
-    return <form method="post" action="/menu/create">
+    var idInput = this.props.id ? <input type="hidden" name="menu[_id]" value={this.props.id} /> : '';
+
+    return <form method="post" action={"/menu/" + this.props.action}>
       <fieldset>
         <label htmlFor="menu[name]">Menu Name:</label>
         <input type="text" name="menu[name]" value={this.state.name} onChange={this.changeName} />
+        {idInput}
         {this.state.sections.map(this.renderSection)}
         <div>
           <a href="#" onClick={this.addSection}>Add a section</a>
