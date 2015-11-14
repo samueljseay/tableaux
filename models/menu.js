@@ -17,6 +17,7 @@ var MenuSection = new Schema({
 var MenuSchema = new Schema({
 	name: { type: String, required: true },
   user: { type: User, required: true },
+  css: { type: String, default: '/* Custom CSS */' },
   sections: [MenuSection]
 });
 

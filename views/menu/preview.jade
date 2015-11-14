@@ -1,0 +1,14 @@
+extend /layout
+
+block scripts
+  script.
+    window.app = {};
+    window.app.menu = !{JSON.stringify(menu)};
+
+block content
+  h1 Preview your menu
+
+  div(class='menu')
+    h2= menu.name
+
+  div(id='menu-css-form')

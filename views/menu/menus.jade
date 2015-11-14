@@ -6,8 +6,9 @@ block content
   ul
     - each menu in menus
       li
-        a(href="/menu/#{menu.id}")
-          = menu.name
+        a(href="/menu/#{menu.id}") Edit #{menu.name}
+        br
+        a(href="/menu/preview/#{menu.id}") Preview and style #{menu.name}
 
 
   h3 Create Menu

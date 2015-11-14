@@ -11,7 +11,6 @@ var MenuController = new Controller({
 		role: 'user',
 		action: function(req, res) {
       Menu.find({ 'user.email': req.user.email }, function(err, menus) {
-				console.log(err);
 				new View(res, 'menu/menus').render({ menus: menus || [] });
 			});
 		}
@@ -42,9 +41,18 @@ var MenuController = new Controller({
 		role: 'user',
 		action: function(req, res) {
 			var menu = req.body.menu;
-			
+
 			Menu.findByIdAndUpdate(menu._id, menu, function(err, men) {
 				res.redirect('/menu/' + men.id);
+			});
+		}
+	}, {
+		urls: ['/preview/:id'],
+		requestType: 'GET',
+		role: 'user',
+		action: function(req, res) {
+			Menu.find({ _id: req.params.id }, function(err, menus) {
+				new View(res, 'menu/preview').render({ menu: menus[0] });
 			});
 		}
 	}]

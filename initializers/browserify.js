@@ -1,7 +1,7 @@
 var browserify = require('browserify-middleware'),
     path = require('path'),
     reactify = require('reactify'),
-    uglify = require('uglifyify');
+    cssify = require('browserify-css');
 
 module.exports = {
   init: function(app) {
@@ -10,10 +10,10 @@ module.exports = {
     };
 
     app.use('/js', browserify(path.join(app.get('root'), 'public/javascripts/app'), {
-      transform: [reactifyES6, uglify],
-      extensions: ['.js', '.jsx'],
-      grep: /\.jsx?$/,
-      cache: 'dynamic'
+      transform: [reactifyES6, cssify],
+      // grep: /\.jsx?$/,
+      cache: 'dynamic',
+      minify: true
     }));
   }
 };
