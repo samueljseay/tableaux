@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var debug = require('debug')('paleology-web'),
     app = require('../app'),
-	  mongoose = require('mongoose');
+    mongoose = require('mongoose');
 
 var db_conn_string = 'mongodb://localhost/tableaux';
 
@@ -15,9 +15,9 @@ mongoose.connect(db_conn_string, function(err,res) {
 
     app.set('port', process.env.PORT || 3000);
 
-  	var server = app.listen(app.get('port'), function() {
+    var server = app.listen(app.get('port'), function() {
       console.log('app started.');
-  	});
+    });
 
     server.on('error', onError);
   }
