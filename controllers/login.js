@@ -10,8 +10,9 @@ var LoginController = new Controller({
     action: function(req, res) {
       if(req.user) {
         res.redirect('/dashboard');
+      } else {
+        new View(res, 'login').render();
       }
-      new View(res, 'login').render();
     }
   }, {
     urls: ['/'],
