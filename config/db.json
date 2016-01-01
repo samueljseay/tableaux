@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "user",
+    "password": null,
+    "database": "tableaux_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

@@ -1,32 +1,27 @@
 #!/usr/bin/env node
-var debug = require('debug')('paleology-web'),
-    app = require('../app'),
-    mongoose = require('mongoose');
+var debug = require('debug')('tableaux'),
+    app = require('../app');
 
-var db_conn_string = 'mongodb://localhost/tableaux';
+var db = require('../lib/db');
 
-mongoose.connect(db_conn_string, function(err,res) {
-  if(err) {
-    throw err;
-  }
-  else {
-    //load seeds
-    var seeds = require('../lib/seed');
+var port = process.env.PORT || 3000;
 
-    app.set('port', process.env.PORT || 3000);
+db.sync().then(function() {
+  //load seeds
+  var seeds = require('../lib/seed');
 
-    var server = app.listen(app.get('port'), function() {
-      console.log('app started.');
-    });
+  app.set('port', port);
 
-    server.on('error', onError);
-  }
+  var server = app.listen(app.get('port'), function() {
+    console.log('app started.');
+  });
+
+  server.on('error', onError);
 });
 
 /**
  * Event listener for HTTP server "error" event.
  */
-
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;

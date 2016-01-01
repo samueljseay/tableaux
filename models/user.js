@@ -1,41 +1,71 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
+var db = require('../lib/db'),
+    Sequelize = require('sequelize'),
+    Promise = Sequelize.Promise,
     bcrypt = require('bcrypt'),
     passport = require('passport');
 
 var SALT_WORK_FACTOR = 10;
 
-var UserSchema = new Schema({
-  username: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true},
-  role: { type: String, required: true}
+var User = db.define('User', {
+  username: {
+    type: Sequelize.STRING,
+    unique: true,
+    validate: {
+      notEmpty: true
+    }
+  },
+
+  email: {
+    type: Sequelize.STRING,
+    unique: true,
+    validate: {
+      notEmpty: true
+    }
+  },
+
+  password: {
+    type: Sequelize.STRING,
+    validate: {
+      notEmpty: true
+    }
+  },
+
+  role: {
+    type: Sequelize.STRING,
+    validate: {
+      notEmpty: true
+    }
+  }
+}, {
+  instanceMethods: {
+    comparePassword: function(candidatePassword, cb) {
+      bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+        if(err) return cb(err);
+        cb(null, isMatch);
+      });
+    }
+  }
 });
 
-UserSchema.pre('save', function(next) {
-  var user = this;
-
-  if(!user.isModified('password')) return next();
+function encryptPassword(user){
+  //anti pattern but had trouble with nested callbacks
+  var def = Promise.pending();
 
   bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-    if(err) return next(err);
-
+    if(err) { return Promise.reject(err); }
     bcrypt.hash(user.password, salt, function(err, hash) {
-      if(err) return next(err);
       user.password = hash;
-      next();
+      def.resolve();
     });
   });
-});
 
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-    if(err) return cb(err);
-    cb(null, isMatch);
-  });
-};
+  return def.promise;
+}
 
-var User = module.exports = mongoose.model('User', UserSchema);
+User.hook('beforeCreate', encryptPassword);
+User.hook('beforeUpdate', encryptPassword);
+
+module.exports = User;
 
 passport.serializeUser(function(user, done) {
   //serialize the id to the session
@@ -43,7 +73,8 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function (err, user) {
+  console.log('finding: ' + id);
+  User.findById(id).then(function (user) {
     done(null, user);
   });
 });

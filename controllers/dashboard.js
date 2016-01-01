@@ -1,6 +1,5 @@
-var _ = require('lodash'),
-  Controller = require('../lib/controller'),
-  View = require('../lib/view');
+var Controller = require('../lib/controller'),
+    View = require('../lib/view');
 
 var DashboardController = new Controller({
   name: 'dashboard',

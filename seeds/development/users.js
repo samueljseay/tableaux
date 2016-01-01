@@ -12,15 +12,6 @@ var users = [{
   role: 'user'
 }];
 
-User.remove(function(err,p) {
-  users.forEach(function(u) {
-    User.find(u, function(err, res) {
-      if(!res.length) {
-        console.log('seeding user: ' + u.username);
-        new User(u).save(function(err) {
-          if (err) { throw err; }
-        });
-      }
-    });
-  });
+users.forEach(function(u) {
+  User.findOrCreate({ where: {username: u.username}, defaults: u });
 });
