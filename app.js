@@ -5,9 +5,6 @@ var express = require('express'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
     requireDir = require('require-dir'),
-    passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy,
-    User = require('./models/user'),
     cookieParser = require('cookie-parser'),
     tableaux = require('./lib/tableaux'),
     flash = require('connect-flash');
@@ -27,27 +24,7 @@ app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: fals
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
-
-//setup auth
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ where: { username: username } }).then(function(user) {
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username or password' });
-      }
-
-      user.comparePassword(password, function(err, match) {
-        if(match) {
-          return done(null, user);
-        }
-        return done(null, false, { message: 'Incorrect username or password.' });
-      });
-    });
-  }
-));
 
 tableaux.initialize(app);
 
