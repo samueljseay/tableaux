@@ -11,7 +11,8 @@ var LoginController = new Controller({
       if(req.user) {
         res.redirect('/dashboard');
       } else {
-        new View(res, 'login').render();
+        var message = (req.session.flash && req.session.flash.error) ? req.session.flash.error : '';
+        new View(res, 'login').render({ message: message });
       }
     }
   }, {

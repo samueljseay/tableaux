@@ -9,7 +9,8 @@ var express = require('express'),
     LocalStrategy = require('passport-local').Strategy,
     User = require('./models/user'),
     cookieParser = require('cookie-parser'),
-    tableaux = require('./lib/tableaux');
+    tableaux = require('./lib/tableaux'),
+    flash = require('connect-flash');
 
 var app = express();
 
@@ -20,6 +21,7 @@ app.set('view engine', 'jade');
 
 //uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(flash());
 app.use(cookieParser());
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 app.use(logger('dev'));
@@ -33,17 +35,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 passport.use(new LocalStrategy(
   function(username, password, done) {
     User.findOne({ where: { username: username } }).then(function(user) {
-      // if (err) { return done(err); }
       if (!user) {
-        console.log('incorrect username attempted');
-        return done(null, false, { message: 'Incorrect username.' });
+        return done(null, false, { message: 'Incorrect username or password' });
       }
 
       user.comparePassword(password, function(err, match) {
         if(match) {
           return done(null, user);
         }
-        return done(null, false, { message: 'Incorrect password.' });
+        return done(null, false, { message: 'Incorrect username or password.' });
       });
     });
   }
