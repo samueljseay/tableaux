@@ -1,0 +1,53 @@
+h1 Create a new content type
+
+form(id='content-fields', action="/content-type/create", method="post")
+  label Content Type Name:
+  input(type='text', name='ctype[name]', value='')
+  p
+    Step 1. Add fields to your content type. (configure them later)
+
+  select(id='fields')
+    each f in fields
+      option(value=f.meta.type) #{f.meta.type} field, #{f.meta.description}
+
+  a(href='#', id='add-field') Add field
+
+  div(id='selected-fields')
+
+  input(type='submit', id='submit', value='Next step')
+
+div(id='hidden-field-types')
+  each f in fields
+    div(style='display:none;', id='field-#{f.meta.type}')
+      each option, key in f.options
+        label #{option.display}
+          case option.type
+            when 'text'
+              input(type='text', name='ctype[fields][$$$][options][#{key}]', value=option.value)
+              br
+            when 'bool'
+              input(class='pseudo-checkbox', type='checkbox', checked=(option.value))
+              input(type='hidden', name='ctype[fields][$$$][options][#{key}]', value='#{option.value}')
+              br
+            when 'number'
+              input(type='number', name='ctype[fields][$$$][options][#{key}]', value=option.value)
+              br
+
+
+script(src='https://code.jquery.com/jquery-2.1.4.min.js', type='application/javascript')
+script(type='application/javascript').
+  $('#add-field').on('click', function(e) {
+    $('#selected-fields').append('<div/>');
+    $('#selected-fields div:last-child').append($('#fields').val());
+    $('#selected-fields div:last-child').append('<br><input type="hidden" name="ctype[fields][' + ($('#selected-fields div').length - 1) + '][type]" value="' + $('#fields').val() + '"/>');
+
+    $('#selected-fields div:last-child').append($('#field-' + $('#fields').val()).html().replace(/\$\$\$/g, $('#selected-fields div').length - 1));
+
+    $('.pseudo-checkbox').on('click', function() {
+      var el = $(this);
+      el.next().val(el.is(':checked') ? true : false);
+    });
+
+    e.preventDefault();
+  });
+
