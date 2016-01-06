@@ -38,10 +38,14 @@ script(src='https://code.jquery.com/jquery-2.1.4.min.js', type='application/java
 script(type='application/javascript').
   $('#add-field').on('click', function(e) {
     $('#selected-fields').append('<div/>');
-    $('#selected-fields div:last-child').append($('#fields').val());
-    $('#selected-fields div:last-child').append('<br><input type="hidden" name="ctype[fields][' + ($('#selected-fields div').length - 1) + '][type]" value="' + $('#fields').val() + '"/>');
 
-    $('#selected-fields div:last-child').append($('#field-' + $('#fields').val()).html().replace(/\$\$\$/g, $('#selected-fields div').length - 1));
+    var $fieldDiv = $('#selected-fields div:last-child'),
+        index = ($('#selected-fields div').length - 1);
+
+    $fieldDiv.append($('#fields').val());
+    $fieldDiv.append('<br><input type="hidden" name="ctype[fields][' + index + '][type]" value="' + $('#fields').val() + '"/>');
+    $fieldDiv.append('<input type="hidden" name="ctype[fields][' + index + '][id]" value="'+ index +'" />');
+    $fieldDiv.append($('#field-' + $('#fields').val()).html().replace(/\$\$\$/g, index));
 
     $('.pseudo-checkbox').on('click', function() {
       var el = $(this);

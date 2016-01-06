@@ -1,4 +1,6 @@
-var _ = require('lodash');
+var _ = require('lodash'),
+    viewDir = require('../app').get('views'),
+    path = require('path');
 
 module.exports = {
   options: {
@@ -23,7 +25,7 @@ module.exports = {
 
   meta: {
     type: 'number',
-    partial: 'fields/number',
+    partial: require('jade').compileFile(path.join(viewDir, 'field-types', 'number.jade')),
     description: 'A number field',
     valid: function() {
       return _.isNumber(this.value);

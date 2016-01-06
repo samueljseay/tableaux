@@ -1,4 +1,6 @@
-var _ = require('lodash');
+var _ = require('lodash'),
+    viewDir = require('../app').get('views'),
+    path = require('path');
 
 module.exports = {
 
@@ -25,7 +27,7 @@ module.exports = {
 
   meta: {
     type: 'text',
-    partial: 'fields/text',
+    partial: require('jade').compileFile(path.join(viewDir, 'field-types', 'text.jade')),
     description: 'A one line text field',
     valid: function() {
       return !(!this.value && this.required) || (this.value.length <= this.maxLength);

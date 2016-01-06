@@ -7,8 +7,7 @@ var ContentType = db.define('ContentType', {
   //{
   //fields: [{
   //  type: 'text',
-  //  name: 'movie title',
-  //  value: 'Tomorrow Never Dies'
+  //  name: 'movie title'
   //}]
   //
   //}

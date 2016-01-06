@@ -3,13 +3,14 @@ var Controller = require('../lib/controller'),
     requireDir = require('require-dir'),
     ContentType = require('../models/content-type');
 
-var ContentTypeController = new Controller({
+var ContentController = new Controller({
   name: 'content',
   routes: [{
     urls: ['/'],
     role: 'user',
     requestType: 'GET',
     action: function(req, res) {
+
       ContentType.findAll().then(function(ctypes) {
         new View(res, 'content/index').render({
           ctypes: ctypes
@@ -24,11 +25,12 @@ var ContentTypeController = new Controller({
       ContentType.findById(req.params.id).then(function(ctype) {
         console.dir(ctype.fieldSchema);
         new View(res, 'content/form').render({
-          ctype: ctype
+          ctype: ctype,
+          fields: requireDir('../field-types')
         });
       });
     }
   }]
 });
 
-module.exports = ContentTypeController;
+module.exports = ContentController;
