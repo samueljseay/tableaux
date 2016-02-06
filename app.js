@@ -7,20 +7,21 @@ var express = require('express'),
     requireDir = require('require-dir'),
     cookieParser = require('cookie-parser'),
     tableaux = require('./lib/tableaux'),
-    flash = require('connect-flash');
+    flash = require('connect-flash'),
+    keys = require('./config/keys');
 
 var app = express();
+
+app.db = require('./lib/db');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view options', { layout: false });
 app.set('view engine', 'jade');
 
-//uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(flash());
 app.use(cookieParser());
-app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(session({ secret: keys.sessionSecret, resave: false, saveUninitialized: false }));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

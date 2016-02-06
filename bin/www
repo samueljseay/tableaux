@@ -1,19 +1,16 @@
 #!/usr/bin/env node
 var debug = require('debug')('tableaux'),
-    app = require('../app');
+    app = require('../app'),
+    port = process.env.PORT || 3000;
 
-var db = require('../lib/db');
-
-var port = process.env.PORT || 3000;
-
-db.sync().then(function() {
+app.db.sync({ force: process.env.NODE_ENV === 'development' }).then(function() {
   //load seeds
   var seeds = require('../lib/seed');
 
   app.set('port', port);
 
   var server = app.listen(app.get('port'), function() {
-    console.log('app started.');
+    console.log('app started on port: ' + app.get('port'));
   });
 
   server.on('error', onError);

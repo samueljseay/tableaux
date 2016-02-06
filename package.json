@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "NODE_ENV=development BLUEBIRD_WARNINGS=0 node ./bin/www",
     "test": "mocha ./test/* ./test/*/*"
   },
   "dependencies": {
