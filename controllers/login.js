@@ -1,5 +1,4 @@
 var Controller = require('../lib/controller'),
-    View = require('../lib/view'),
     passport = require('passport');
 
 var LoginController = new Controller({
@@ -12,7 +11,7 @@ var LoginController = new Controller({
         res.redirect('/dashboard');
       } else {
         var message = (req.session.flash && req.session.flash.error) ? req.session.flash.error : '';
-        new View(res, 'login').render({ message: message });
+        this.render({ message: message });
       }
     }
   }, {

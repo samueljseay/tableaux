@@ -1,5 +1,4 @@
-var Controller = require('../lib/controller'),
-    View = require('../lib/view');
+var Controller = require('../lib/controller');
 
 var DashboardController = new Controller({
   name: 'dashboard',
@@ -8,7 +7,7 @@ var DashboardController = new Controller({
     role: 'user',
     requestType: 'GET',
     action: function(req, res) {
-      new View(res, 'dashboard').render();
+      this.render();
     }
   }]
 });
