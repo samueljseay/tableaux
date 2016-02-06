@@ -1,7 +1,7 @@
 {
   "name": "tableaux",
   "author": "Samuel Seay",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "scripts": {
     "start": "NODE_ENV=development BLUEBIRD_WARNINGS=0 node ./bin/www",
