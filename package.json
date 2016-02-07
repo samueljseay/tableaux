@@ -4,9 +4,10 @@
   "version": "0.0.2",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=development BLUEBIRD_WARNINGS=0 node ./bin/www",
+    "start": "NODE_ENV=development BLUEBIRD_WARNINGS=0 node ./app",
     "test": "mocha ./test/* ./test/*/*"
   },
+  "main": "tableaux.js",
   "dependencies": {
     "bcrypt": "^0.8.5",
     "body-parser": "~1.13.2",
