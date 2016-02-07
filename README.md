@@ -32,7 +32,7 @@ Ensure you have a project directory with the following tree:
 index.js
 ```
 
-Define a controller e.g. ```controllers/dashboard.js```
+Define a controller e.g. `controllers/dashboard.js`
 
 ```js
 var Controller = require('tableaux/lib/controller');
@@ -57,4 +57,4 @@ module.exports = DashboardController;
 ```
 
 and then in your index.js:
-```require('tableaux').start();```
+`require('tableaux').start();`
