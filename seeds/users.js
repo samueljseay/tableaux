@@ -1,4 +1,4 @@
-var User = require('../../models/user');
+var User = require('../models/user');
 
 var users = [{
   username: 'user',
@@ -13,5 +13,5 @@ var users = [{
 }];
 
 users.forEach(function(u) {
-  User.findOrCreate({ where: {username: u.username}, defaults: u });
+  User.create(u);
 });
