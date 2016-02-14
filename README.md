@@ -23,7 +23,8 @@ then get in touch with me via twitter: @samseay.**
 
 Generate project structure with the simple generator by running:
 
-```npm run-script generate```
+`npm run-script generate` The generator will also include login and
+logout controllers for handling authenticated sessions.
 
 Define a controller e.g. `controllers/dashboard.js`
 
