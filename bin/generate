@@ -20,6 +20,7 @@ inquirer.prompt([{
     mkdir(currentPath + '/controllers', function() {
         write(currentPath + '/controllers/login.js', loadTemplate('controllers/login.js'));
         write(currentPath + '/controllers/logout.js', loadTemplate('controllers/login.js'));
+        write(currentPath + '/controllers/dashboard.js', loadTemplate('controllers/dashboard.js'));
     });
 
     mkdir(currentPath + '/initializers');
