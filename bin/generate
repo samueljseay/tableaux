@@ -5,8 +5,6 @@ var currentPath = process.cwd(),
     path = require('path'),
     fs = require('fs');
 
-currentPath = path.join(currentPath, 'testing');
-
 console.log('~~~ Tableaux Project Generator ~~~');
 
 inquirer.prompt([{
