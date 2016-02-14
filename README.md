@@ -23,7 +23,7 @@ then get in touch with me via twitter: @samseay.**
 
 Generate project structure with the simple generator by running:
 
-`npm run-script generate` The generator will also include login and
+`node node_modules/tableaux/bin/generate` The generator will also include login and
 logout controllers for handling authenticated sessions. The login controller
 currently redirects to dashboard after login.
 
