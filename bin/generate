@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+var currentPath = process.cwd(),
+    mkdirp = require('mkdirp'),
+    inquirer = require('inquirer'),
+    path = require('path'),
+    fs = require('fs');
+
+currentPath = path.join(currentPath, 'testing');
+
+console.log('~~~ Tableaux Project Generator ~~~');
+
+inquirer.prompt([{
+  type: 'confirm',
+  name: 'generate',
+  message: "Are you sure you want to generate a new tableaux project?\n This will add commonly used directories and files to your project."
+}], function(answers) {
+  if(answers.generate === true) {
+    mkdir(currentPath + '/config');
+
+    mkdir(currentPath + '/controllers', function() {
+        write(currentPath + '/controllers/login.js', loadTemplate('controllers/login.js'));
+        write(currentPath + '/controllers/logout.js', loadTemplate('controllers/login.js'));
+    });
+
+    mkdir(currentPath + '/initializers');
+    mkdir(currentPath + '/models');
+    mkdir(currentPath + '/public');
+
+    mkdir(currentPath + '/seeds', function() {
+      write(currentPath + '/seeds/users.js', loadTemplate('seeds/users.js'));
+    });
+
+    mkdir(currentPath + '/views', function() {
+      write(currentPath + '/views/login.jade', loadTemplate('views/login.jade'));
+    });
+  }
+});
+
+function mkdir(path, fn) {
+  mkdirp(path, 0755, function(err){
+    if (err) throw err;
+    console.log('   \033[36mcreate\033[0m : ' + path);
+    fn && fn();
+  });
+}
+
+function write(path, str, mode) {
+  fs.writeFileSync(path, str, { mode: mode || 0666 });
+  console.log('   \x1b[36mcreate\x1b[0m : ' + path);
+}
+
+function loadTemplate(name) {
+  return fs.readFileSync(path.join(__dirname, '..', 'lib', 'templates', name), 'utf-8');
+}
