@@ -21,16 +21,9 @@ then get in touch with me via twitter: @samseay.**
 
 ### Usage Example
 
-Ensure you have a project directory with the following tree:
+Generate project structure with the simple generator by running:
 
-```
-- controllers
-- initializers
-- models
-- seeds
-- views
-index.js
-```
+```npm run-script generate```
 
 Define a controller e.g. `controllers/dashboard.js`
 
